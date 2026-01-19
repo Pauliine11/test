@@ -1,0 +1,133 @@
+{# templates/base.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}Atelier d’Art{% endblock %}</title>
+
+  <meta name="description" content="{% block meta_description %}Boutique officielle de l’artiste — œuvres originales, impressions et éditions limitées.{% endblock %}">
+
+  {# AssetMapper / Importmap (Symfony récent) #}
+  {% block importmap %}
+    {{ importmap('app') }}
+  {% endblock %}
+
+  {% block stylesheets %}{% endblock %}
+  {% block javascripts %}{% endblock %}
+</head>
+
+<body class="bg-body">
+
+  {# Header / Navbar #}
+  {% block header %}
+    {% include 'partials/navbar.html.twig' %}
+  {% endblock %}
+
+  {# Flash messages #}
+  {% block flashes %}
+    <div class="container mt-3">
+      {% for label, messages in app.flashes %}
+        {% for message in messages %}
+          <div class="alert alert-{{ label }} alert-dismissible fade show rounded-4 shadow-sm" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  {% endblock %}
+
+  {# Main content #}
+  <main>
+    {% block body %}
+        {# ================= MAIN CATEGORIES ================= #}
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h1 class="fw-bold mb-2">L’univers de l’artiste</h1>
+      <p class="text-body-secondary fs-5">
+        Trois formes d’expression, une même sensibilité.
+      </p>
+    </div>
+
+    <div class="row g-4">
+
+      {# ===== PRINTS ===== #}
+      <div class="col-12 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden category-art-card">
+          <img
+            src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?q=80&w=900"
+            alt="Prints artistiques"
+            class="img-fluid category-art-image"
+          >
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-2">Les Prints</h3>
+            <p class="text-body-secondary mb-4">
+              Reproductions de haute qualité, impressions signées,
+              disponibles en édition limitée.
+            </p>
+            <a href="#" class="btn btn-outline-primary rounded-3">
+              Découvrir les prints
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {# ===== ORIGINAUX ===== #}
+      <div class="col-12 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden category-art-card">
+          <img
+            src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=900"
+            alt="Œuvres originales"
+            class="img-fluid category-art-image"
+          >
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-2">Les Originaux</h3>
+            <p class="text-body-secondary mb-4">
+              Pièces uniques, réalisées à la main.
+              Chaque œuvre raconte une histoire singulière.
+            </p>
+            <a href="#" class="btn btn-outline-primary rounded-3">
+              Voir les originaux
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {# ===== SCULPTURES ===== #}
+      <div class="col-12 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden category-art-card">
+          <img
+            src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?q=80&w=900"
+            alt="Sculptures"
+            class="img-fluid category-art-image"
+          >
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-2">Les Sculptures</h3>
+            <p class="text-body-secondary mb-4">
+              Œuvres en volume, matières brutes ou raffinées,
+              pensées pour habiter l’espace.
+            </p>
+            <a href="#" class="btn btn-outline-primary rounded-3">
+              Explorer les sculptures
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    {% endblock %}
+  </main>
+
+  {# Footer #}
+  {% block footer %}
+    {% include 'partials/footer.html.twig' %}
+  {% endblock %}
+
+</body>
+</html>

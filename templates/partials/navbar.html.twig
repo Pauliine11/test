@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+  <div class="container py-2">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ path('app_home') }}">
+      <span class="brand-mark">✦</span>
+      <span>Atelier d’Art</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav mx-lg-auto gap-lg-2">
+        <li class="nav-item">
+          <a class="nav-link {% if app.request.attributes.get('_route') == 'app_home' %}active fw-semibold{% endif %}"
+             href="{{ path('app_home') }}">Accueil</a>
+        </li>
+
+        {# Remplace ces routes quand tu les auras #}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Boutique</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Collections</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">À propos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-2">
+        {# Icône panier (simple, sans dépendance) #}
+        <a href="#" class="btn btn-outline-secondary rounded-3 d-inline-flex align-items-center gap-2">
+          <span aria-hidden="true">🛒</span>
+          <span class="d-none d-md-inline">Panier</span>
+          <span class="badge text-bg-secondary ms-1">0</span>
+        </a>
+
+        {% if app.user %}
+          <div class="dropdown">
+            <button class="btn btn-primary rounded-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ app.user.userIdentifier }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3">
+              <li><a class="dropdown-item" href="#">Mon compte</a></li>
+
+              {# Si tu as /admin, affiche le lien admin si ROLE_ADMIN #}
+              {% if is_granted('ROLE_ADMIN') %}
+                <li><a class="dropdown-item" href="/admin">Admin</a></li>
+              {% endif %}
+
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            </ul>
+          </div>
+        {% else %}
+          <a href="{{ path('app_login') }}" class="btn btn-outline-primary rounded-3">Connexion</a>
+          <a href="{{ path('app_register') }}" class="btn btn-primary rounded-3">Créer un compte</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
