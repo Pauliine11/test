@@ -26,10 +26,11 @@
         "symfony/runtime": "8.0.*",
         "symfony/security-bundle": "8.0.*",
         "symfony/twig-bundle": "8.0.*",
+        "symfony/ux-chartjs": "^2.32",
         "symfony/validator": "8.0.*",
         "symfony/yaml": "8.0.*",
         "symfonycasts/verify-email-bundle": "^1.18",
-        "vich/uploader-bundle": "^2.9"
+        "vich/uploader-bundle": "*"
     },
     "config": {
         "allow-plugins": {
