@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+<section class="py-5">
+  <div class="container">
+    <a href="{{ path('app_shop') }}" class="text-decoration-none small">← Retour à la boutique</a>
+
+    <div class="row g-4 align-items-start mt-2">
+      <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+          {% if product.image %}
+            <img
+              src="{{ asset('uploads/products/' ~ product.image) }}"
+              class="w-100"
+              style="height:520px; object-fit:cover; display:block;"
+              alt="{{ product.name|e }}"
+            >
+          {% else %}
+            <div class="bg-light d-flex align-items-center justify-content-center" style="height:520px;">
+              <span class="text-body-secondary">Pas d’image</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <h1 class="fw-bold mb-2">{{ product.name }}</h1>
+
+        <div class="fs-3 fw-bold mb-3">
+          {{ (product.price / 100)|number_format(2, ',', ' ') }} €
+        </div>
+
+        <p class="text-body-secondary">
+          Description à venir (tu peux ajouter un champ "description" plus tard).
+        </p>
+
+        {# 🔹 Actions #}
+        <div class="d-grid gap-3 d-sm-flex mt-4">
+
+          {# 👉 Bouton panier (tu le gardes pour plus tard) #}
+          <button class="btn btn-outline-secondary btn-lg rounded-3" type="button">
+            Ajouter au panier
+          </button>
+
+          {# 👉 Stripe Checkout (POST obligatoire) #}
+          <form
+            method="post"
+            action="{{ path('app_checkout', { id: product.id }) }}"
+          >
+            <button
+              class="btn btn-primary btn-lg rounded-3"
+              type="submit"
+            >
+              Payer avec Stripe
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

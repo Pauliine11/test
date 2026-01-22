@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}Paiement validé{% endblock %}
+{% block body %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="fw-bold">Merci !</h1>
+    <p class="text-body-secondary">Paiement confirmé (mode test).</p>
+    <a href="{{ path('app_shop') }}" class="btn btn-outline-primary rounded-3">Retour boutique</a>
+  </div>
+</section>
+{% endblock %}
