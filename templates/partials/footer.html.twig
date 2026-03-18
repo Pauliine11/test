@@ -1,74 +1,79 @@
-<footer class="border-top bg-white">
-  <div class="container py-5">
-    <div class="row g-4">
+<footer class="footer-luxe">
+  <div class="container">
+
+    {# Top #}
+    <div class="row g-5 footer-top">
       <div class="col-12 col-lg-4">
-        <div class="d-flex align-items-center gap-2 mb-2">
+        <a class="footer-brand" href="{{ path('app_home') }}">
           <span class="brand-mark">✦</span>
-          <span class="fw-bold">Atelier d’Art</span>
-        </div>
-        <p class="text-body-secondary mb-3">
-          Œuvres originales, impressions et créations en série limitée.
-          Chaque pièce est préparée avec soin.
+          <span>Atelier d'Art</span>
+        </a>
+        <p class="footer-desc mt-3">
+          Œuvres originales, aquarelles et créations en édition limitée.
+          Chaque pièce est signée, préparée et expédiée avec soin.
         </p>
-
-        <div class="d-flex gap-2">
-          <a class="btn btn-outline-secondary btn-sm rounded-3" href="#" aria-label="Instagram">Instagram</a>
-          <a class="btn btn-outline-secondary btn-sm rounded-3" href="#" aria-label="TikTok">TikTok</a>
-          <a class="btn btn-outline-secondary btn-sm rounded-3" href="#" aria-label="Newsletter">Newsletter</a>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-link">Instagram</a>
+          <a href="#" class="footer-social-link">TikTok</a>
+          <a href="#" class="footer-social-link">Pinterest</a>
         </div>
       </div>
 
       <div class="col-6 col-lg-2">
-        <h6 class="fw-semibold mb-3">Boutique</h6>
-        <ul class="list-unstyled d-grid gap-2">
-          <li><a class="link-secondary text-decoration-none" href="#">Nouveautés</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Collections</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Cartes cadeaux</a></li>
+        <h6 class="footer-heading">Boutique</h6>
+        <ul class="footer-links">
+          <li><a href="{{ path('app_shop') }}">Nouveautés</a></li>
+          <li><a href="{{ path('app_shop') }}">Collections</a></li>
+          <li><a href="#">Cartes cadeaux</a></li>
         </ul>
       </div>
 
       <div class="col-6 col-lg-2">
-        <h6 class="fw-semibold mb-3">Aide</h6>
-        <ul class="list-unstyled d-grid gap-2">
-          <li><a class="link-secondary text-decoration-none" href="#">Livraison & retours</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">FAQ</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Contact</a></li>
+        <h6 class="footer-heading">Aide</h6>
+        <ul class="footer-links">
+          <li><a href="#">Livraison & retours</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
       </div>
 
       <div class="col-12 col-lg-4">
-        <h6 class="fw-semibold mb-3">Paiement & livraison</h6>
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <span class="badge text-bg-light border">CB</span>
-          <span class="badge text-bg-light border">PayPal</span>
-          <span class="badge text-bg-light border">Stripe</span>
-          <span class="badge text-bg-light border">Mondial Relay</span>
-          <span class="badge text-bg-light border">Colissimo</span>
+        <h6 class="footer-heading">Newsletter</h6>
+        <p class="footer-newsletter-desc">
+          Nouvelles créations, coulisses d'atelier, éditions limitées.
+          Une fois par mois, pas de spam.
+        </p>
+        <div class="footer-newsletter-form">
+          <input class="newsletter-input" type="email" placeholder="votre@email.com">
+          <button class="btn-gold newsletter-btn">OK</button>
         </div>
-
-        <div class="p-3 rounded-4 bg-light">
-          <div class="fw-semibold mb-1">Recevoir les nouveautés</div>
-          <div class="text-body-secondary small mb-2">Une fois par mois, pas de spam.</div>
-          <form class="d-flex gap-2" method="post" action="#">
-            <input class="form-control" type="email" placeholder="Ton email" aria-label="Email">
-            <button class="btn btn-primary rounded-3" type="submit">OK</button>
-          </form>
+        <div class="footer-payments mt-4">
+          <span>CB</span>
+          <span>Visa</span>
+          <span>Stripe</span>
+          <span>Colissimo</span>
         </div>
       </div>
     </div>
 
-    <hr class="my-4">
-
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-      <div class="text-body-secondary small">
-        © {{ "now"|date("Y") }} Atelier d’Art — Tous droits réservés
-      </div>
-
-      <div class="d-flex gap-3 small">
-        <a class="link-secondary text-decoration-none" href="#">Mentions légales</a>
-        <a class="link-secondary text-decoration-none" href="#">CGV</a>
-        <a class="link-secondary text-decoration-none" href="#">Confidentialité</a>
+    {# Divider #}
+    <div class="footer-divider">
+      <div class="gold-divider" style="max-width:200px;">
+        <span class="gold-ornament">✦</span>
       </div>
     </div>
+
+    {# Bottom #}
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        © {{ "now"|date("Y") }} Atelier d'Art — Tous droits réservés
+      </div>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">CGV</a>
+        <a href="#">Confidentialité</a>
+      </div>
+    </div>
+
   </div>
 </footer>

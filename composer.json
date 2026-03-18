@@ -13,7 +13,7 @@
         "doctrine/doctrine-bundle": "^3.2",
         "doctrine/doctrine-migrations-bundle": "^4.0",
         "doctrine/orm": "^3.6",
-        "easycorp/easyadmin-bundle": "^4.27",
+        "easycorp/easyadmin-bundle": "^4.29",
         "stripe/stripe-php": "^19.2",
         "symfony/asset": "8.0.*",
         "symfony/asset-mapper": "8.0.*",

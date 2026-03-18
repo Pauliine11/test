@@ -32,10 +32,9 @@
           {{ (product.price / 100)|number_format(2, ',', ' ') }} €
         </div>
 
-        <p class="text-body-secondary">
-          Description à venir (tu peux ajouter un champ "description" plus tard).
-        </p>
-
+        {% if product.description %}
+          <p class="text-body-secondary">{{ product.description }}</p>
+        {% endif %}
         {# 🔹 Actions #}
         <div class="d-grid gap-3 d-sm-flex mt-4">
 
@@ -50,7 +49,7 @@
             action="{{ path('app_checkout', { id: product.id }) }}"
           >
             <button
-              class="btn btn-primary btn-lg rounded-3"
+              class="btn btn-dark btn-lg rounded-3"
               type="submit"
             >
               Payer avec Stripe

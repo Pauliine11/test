@@ -1,16 +1,17 @@
 <?php
-
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -34,27 +35,46 @@ class ProductCrudController extends AbstractCrudController
 
         yield TextField::new('name', 'Nom');
 
-        // Prix stocké en centimes dans la DB
+        yield AssociationField::new('category', 'Catégorie')
+            ->setCrudController(CategoryCrudController::class)
+            ->setRequired(false);
+
+        // ✅ Éditeur rich text sur les formulaires
+        yield TextareaField::new('description', 'Description')
+            ->onlyOnForms();
+
+        // ✅ Texte brut sur la liste et le détail
+        yield TextField::new('description', 'Description')
+            ->onlyOnIndex();
+
+        yield TextField::new('description', 'Description')
+            ->onlyOnDetail();
+
         yield MoneyField::new('price', 'Prix')
             ->setCurrency('EUR')
             ->setStoredAsCents();
 
-        // Upload image (form)
+        // Upload image (formulaire)
         yield TextField::new('imageFile', 'Image')
             ->setFormType(VichImageType::class)
+            ->setFormTypeOptions([
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+            ])
             ->onlyOnForms();
 
-        // Preview image (liste)
+        // Aperçu image (liste)
         yield ImageField::new('image', 'Aperçu')
             ->setBasePath('/uploads/products')
             ->onlyOnIndex();
 
-        // Preview image (détail)
+        // Aperçu image (détail)
         yield ImageField::new('image', 'Image')
             ->setBasePath('/uploads/products')
             ->onlyOnDetail();
 
-        // Optionnel : voir le updatedAt en détail
         yield DateTimeField::new('updatedAt', 'Modifié le')->onlyOnDetail();
     }
 }
