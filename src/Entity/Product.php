@@ -19,9 +19,17 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
+
     // Recommandé : prix en centimes
     #[ORM\Column]
     private ?int $price = null;
+
+    // Relation ManyToOne vers Category
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Category $category = null;
 
     // Nom du fichier image stocké en DB
     #[ORM\Column(length: 255, nullable: true)]
@@ -51,6 +59,17 @@ class Product
         return $this;
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+        return $this;
+    }
+
     public function getPrice(): ?int
     {
         return $this->price;
@@ -59,6 +78,17 @@ class Product
     public function setPrice(int $price): static
     {
         $this->price = $price;
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
         return $this;
     }
 

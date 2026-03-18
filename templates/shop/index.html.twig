@@ -1,60 +1,118 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Boutique{% endblock %}
-
 {% block body %}
 <section class="py-5">
-  <div class="container">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-2 mb-4">
-      <div>
-        <h1 class="fw-bold mb-1">Boutique</h1>
-        <p class="text-body-secondary mb-0">Toutes les créations disponibles.</p>
-      </div>
-    </div>
+<div class="container">
 
-    {% if products is empty %}
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-          <div class="fw-semibold mb-1">Aucun produit pour le moment</div>
-          <div class="text-body-secondary">Ajoute des produits dans l’admin, puis reviens ici.</div>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-2 mb-4">
+  <div>
+    <h1 class="fw-bold mb-1">Boutique</h1>
+    <p class="text-body-secondary mb-0">Toutes les créations disponibles.</p>
+  </div>
+</div>
+
+{# ✅ Filtre catégories actif #}
+{% if currentCategory %}
+  <div class="mb-4">
+    <span class="badge text-bg-primary rounded-3 fs-6 px-3 py-2">
+      {{ currentCategory.name }}
+    </span>
+    <a href="{{ path('app_shop') }}" class="ms-2 small text-decoration-none text-body-secondary">
+      ✕ Voir tout
+    </a>
+  </div>
+{% endif %}
+
+{% set hasProducts = false %}
+{% for category in categories %}
+  {% if category.products|length > 0 %}
+    {% set hasProducts = true %}
+  {% endif %}
+{% endfor %}
+
+{% if not hasProducts and productsWithoutCategory is empty %}
+  <div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+      <div class="fw-semibold mb-1">Aucun produit pour le moment</div>
+      <div class="text-body-secondary">Ajoute des produits dans l'admin, puis reviens ici.</div>
+    </div>
+  </div>
+
+{% else %}
+  {# ✅ Produits par catégorie (avec filtre si currentCategory est défini) #}
+{% for category in categories %}
+  {# Si aucun filtre actif OU si la catégorie correspond au filtre #}
+  {% if currentCategory is null or currentCategory.id == category.id %}
+    {% if category.products|length > 0 %}
+      <div class="mb-5">
+        <h2 class="fw-bold mb-3 border-bottom pb-2">{{ category.name }}</h2>
+        <div class="row g-4">
+          {% for product in category.products %}
+            {{ _self.product_card(product) }}
+          {% endfor %}
         </div>
       </div>
-    {% else %}
-      <div class="row g-4">
-        {% for product in products %}
-          <div class="col-12 col-sm-6 col-lg-3">
-            <a href="{{ path('app_product_show', {id: product.id}) }}" class="text-decoration-none">
-              <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden product-card">
-
-                {% if product.image %}
-                  <img
-                    src="{{ asset('uploads/products/' ~ product.image) }}"
-                    class="w-100 product-card-img"
-                    alt="{{ product.name|e }}"
-                    loading="lazy"
-                  >
-                {% else %}
-                  <div class="w-100 product-card-img product-card-img--placeholder d-flex align-items-center justify-content-center">
-                    <span class="text-body-secondary">Pas d’image</span>
-                  </div>
-                {% endif %}
-
-                <div class="card-body p-3">
-                  <div class="fw-semibold text-dark mb-1">{{ product.name }}</div>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="fw-bold text-dark">
-                      {{ (product.price / 100)|number_format(2, ',', ' ') }} €
-                    </div>
-                    <span class="btn btn-sm btn-outline-primary rounded-3">Voir</span>
-                  </div>
-                </div>
-
-              </div>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
     {% endif %}
+  {% endif %}
+{% endfor %}
+
+{# ✅ Produits sans catégorie (masqués si un filtre est actif) #}
+{% if currentCategory is null and productsWithoutCategory is not empty %}
+<div class="mb-5">
+  <h2 class="fw-bold mb-3 border-bottom pb-2">Autres œuvres</h2>
+  <div class="row g-4">
+    {% for product in productsWithoutCategory %}
+      {{ _self.product_card(product) }}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+  {# ✅ Produits sans catégorie #}
+{% if productsWithoutCategory is not empty %}
+  <div class="mb-5">
+    <h2 class="fw-bold mb-3 border-bottom pb-2">Autres œuvres</h2>
+    <div class="row g-4">
+      {% for product in productsWithoutCategory %}
+        {{ _self.product_card(product) }}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% endif %}
   </div>
 </section>
+
+{# ✅ Macro réutilisable pour la carte produit #}
+{% macro product_card(product) %}
+<div class="col-12 col-sm-6 col-lg-3">
+  <a href="{{ path('app_product_show', {id: product.id}) }}" class="text-decoration-none">
+    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden product-card">
+      {% if product.image %}
+        <img
+          src="{{ asset('uploads/products/' ~ product.image) }}"
+          class="w-100 product-card-img"
+          alt="{{ product.name|e }}"
+          loading="lazy"
+        >
+      {% else %}
+        <div class="w-100 product-card-img product-card-img--placeholder d-flex align-items-center justify-content-center">
+          <span class="text-body-secondary">Pas d'image</span>
+        </div>
+      {% endif %}
+      <div class="card-body p-3">
+        <div class="fw-semibold text-dark mb-1">{{ product.name }}</div>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="fw-bold text-dark">
+            {{ (product.price / 100)|number_format(2, ',', ' ') }} €
+          </div>
+          <span class="btn btn-sm btn-outline-dark rounded-3">Voir</span>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+{% endmacro %}
+
 {% endblock %}

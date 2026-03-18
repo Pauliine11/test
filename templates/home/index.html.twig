@@ -1,133 +1,243 @@
-{# templates/base.html.twig #}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'base.html.twig' %}
 
-  <title>{% block title %}Atelier d’Art{% endblock %}</title>
+{% block title %}Atelier d'Art — Œuvres originales{% endblock %}
 
-  <meta name="description" content="{% block meta_description %}Boutique officielle de l’artiste — œuvres originales, impressions et éditions limitées.{% endblock %}">
+{% block body %}
 
-  {# AssetMapper / Importmap (Symfony récent) #}
-  {% block importmap %}
-    {{ importmap('app') }}
-  {% endblock %}
-
-  {% block stylesheets %}{% endblock %}
-  {% block javascripts %}{% endblock %}
-</head>
-
-<body class="bg-body">
-
-  {# Header / Navbar #}
-  {% block header %}
-    {% include 'partials/navbar.html.twig' %}
-  {% endblock %}
-
-  {# Flash messages #}
-  {% block flashes %}
-    <div class="container mt-3">
-      {% for label, messages in app.flashes %}
-        {% for message in messages %}
-          <div class="alert alert-{{ label }} alert-dismissible fade show rounded-4 shadow-sm" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
-          </div>
-        {% endfor %}
-      {% endfor %}
-    </div>
-  {% endblock %}
-
-  {# Main content #}
-  <main>
-    {% block body %}
-        {# ================= MAIN CATEGORIES ================= #}
-<section class="py-5">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h1 class="fw-bold mb-2">L’univers de l’artiste</h1>
-      <p class="text-body-secondary fs-5">
-        Trois formes d’expression, une même sensibilité.
-      </p>
-    </div>
-
-    <div class="row g-4">
-
-      {# ===== PRINTS ===== #}
-      <div class="col-12 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden category-art-card">
-          <img
-            src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?q=80&w=900"
-            alt="Prints artistiques"
-            class="img-fluid category-art-image"
-          >
-          <div class="card-body p-4">
-            <h3 class="fw-bold mb-2">Les Prints</h3>
-            <p class="text-body-secondary mb-4">
-              Reproductions de haute qualité, impressions signées,
-              disponibles en édition limitée.
-            </p>
-            <a href="#" class="btn btn-outline-primary rounded-3">
-              Découvrir les prints
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {# ===== ORIGINAUX ===== #}
-      <div class="col-12 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden category-art-card">
-          <img
-            src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=900"
-            alt="Œuvres originales"
-            class="img-fluid category-art-image"
-          >
-          <div class="card-body p-4">
-            <h3 class="fw-bold mb-2">Les Originaux</h3>
-            <p class="text-body-secondary mb-4">
-              Pièces uniques, réalisées à la main.
-              Chaque œuvre raconte une histoire singulière.
-            </p>
-            <a href="#" class="btn btn-outline-primary rounded-3">
-              Voir les originaux
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {# ===== SCULPTURES ===== #}
-      <div class="col-12 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden category-art-card">
-          <img
-            src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?q=80&w=900"
-            alt="Sculptures"
-            class="img-fluid category-art-image"
-          >
-          <div class="card-body p-4">
-            <h3 class="fw-bold mb-2">Les Sculptures</h3>
-            <p class="text-body-secondary mb-4">
-              Œuvres en volume, matières brutes ou raffinées,
-              pensées pour habiter l’espace.
-            </p>
-            <a href="#" class="btn btn-outline-primary rounded-3">
-              Explorer les sculptures
-            </a>
-          </div>
-        </div>
-      </div>
-
+{# ============================================================
+   HERO
+   ============================================================ #}
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-content text-center py-5">
+    <span class="hero-line"></span>
+    <p class="hero-subtitle mb-4">Atelier d'Art — Œuvres originales</p>
+    <h1 class="hero-title mb-4">
+      L'art comme<br><em>langage de l'âme</em>
+    </h1>
+    <p class="font-body text-white-50 mb-5 mx-auto" style="max-width:480px; font-weight:300; line-height:1.8;">
+      Peintures originales, aquarelles et créations uniques.<br>
+      Chaque œuvre est une invitation au voyage intérieur.
+    </p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a href="{{ path('app_shop') }}" class="btn-gold">Découvrir la boutique</a>
+      <a href="#univers" class="btn-gold btn-gold--ghost">L'univers de l'artiste</a>
     </div>
   </div>
 </section>
 
-    {% endblock %}
-  </main>
 
-  {# Footer #}
-  {% block footer %}
-    {% include 'partials/footer.html.twig' %}
-  {% endblock %}
+{# ============================================================
+   UNIVERS / CATÉGORIES
+   ============================================================ #}
+<section id="univers" class="section-creme py-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-label justify-content-center mb-3">Collections</span>
+      <h2 class="font-display section-title">
+        Trois formes d'expression,<br><em>une même sensibilité</em>
+      </h2>
+    </div>
 
-</body>
-</html>
+    {% set accroches = {
+      0: 'Matière généreuse, couleurs profondes. Des œuvres qui habitent durablement un espace.',
+      1: 'La transparence comme langage. Chaque lavis raconte une lumière unique.',
+      2: 'Formes libres, émotions brutes. Une invitation à voir autrement.'
+    } %}
+
+    <div class="row g-3">
+      {% for key, category in categories %}
+        <div class="col-12 col-md-4">
+          <a href="{{ path('app_shop', { category: category.id }) }}" class="cat-card rounded-3">
+            {% if category.image %}
+              <img src="{{ asset('uploads/categories/' ~ category.image) }}" alt="{{ category.name }}">
+            {% else %}
+              <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=900" alt="{{ category.name }}">
+            {% endif %}
+            <div class="cat-card-body">
+              <div class="cat-card-title">{{ category.name }}</div>
+              <div class="cat-card-desc">{{ accroches[key] ?? 'Découvrez cette collection unique.' }}</div>
+              <div class="cat-card-link">Découvrir →</div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+{# ============================================================
+   DERNIÈRES CRÉATIONS
+   ============================================================ #}
+{% if latestProducts is not empty %}
+<section class="section-white py-section">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end mb-5">
+      <div>
+        <span class="section-label mb-3">Nouveautés</span>
+        <h2 class="font-display section-title mb-0">
+          Dernières <em>créations</em>
+        </h2>
+      </div>
+      <a href="{{ path('app_shop') }}" class="btn-noir d-none d-md-inline-block">Voir tout</a>
+    </div>
+
+    <div class="row g-4">
+      {% for product in latestProducts %}
+        <div class="col-12 col-sm-6 col-lg-3">
+          <a href="{{ path('app_product_show', {id: product.id}) }}" class="product-card rounded-3 overflow-hidden shadow-sm">
+            <div class="overflow-hidden">
+              {% if product.image %}
+                <img src="{{ asset('uploads/products/' ~ product.image) }}" alt="{{ product.name|e }}">
+              {% else %}
+                <div class="product-card-img--placeholder d-flex align-items-center justify-content-center">
+                  <span class="text-muted small">Pas d'image</span>
+                </div>
+              {% endif %}
+            </div>
+            <div class="p-3">
+              <div class="product-category-label">
+                {{ product.category ? product.category.name : 'Œuvre' }}
+              </div>
+              <div class="font-display product-card-name">{{ product.name }}</div>
+              <div class="product-price">
+                {{ (product.price / 100)|number_format(2, ',', ' ') }} €
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-5 d-md-none">
+      <a href="{{ path('app_shop') }}" class="btn-noir">Voir toutes les œuvres</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+{# ============================================================
+   À PROPOS
+   ============================================================ #}
+<section class="about-section py-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-12 col-lg-5">
+        <div class="about-img-wrapper">
+          <img
+            src="https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?q=80&w=800"
+            alt="L'artiste"
+            class="about-img rounded-3"
+          >
+          <div class="about-frame"></div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-7 ps-lg-5">
+        <span class="section-label mb-4">L'artiste</span>
+        <blockquote class="about-quote mb-4">
+          « Je peins pour dire ce que<br>
+          <span>les mots ne peuvent pas</span><br>
+          encore exprimer. »
+        </blockquote>
+        <p class="font-body about-bio mb-5">
+          Peintre depuis plus de quinze ans, je travaille principalement à l'huile
+          et à l'aquarelle. Mon travail explore la lumière, les émotions et
+          l'instant suspendu — celui d'avant les mots.
+        </p>
+        <a href="#" class="btn-gold">En savoir plus</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{# ============================================================
+   PROCESS CRÉATIF
+   ============================================================ #}
+<section class="section-creme py-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-label justify-content-center mb-3">Savoir-faire</span>
+      <h2 class="font-display section-title">
+        De l'atelier à <em>votre intérieur</em>
+      </h2>
+    </div>
+
+    <div class="row text-center g-4">
+      <div class="col-12 col-md-4">
+        <div class="process-number">01</div>
+        <div class="process-divider mx-auto"></div>
+        <div class="process-title font-display mb-3">La création</div>
+        <p class="font-body process-desc mx-auto">
+          Chaque œuvre naît d'une émotion.
+        </p>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="process-number">02</div>
+        <div class="process-divider mx-auto"></div>
+        <div class="process-title font-display mb-3">La signature</div>
+        <p class="font-body process-desc mx-auto">
+          Chaque pièce est signée, numérotée et accompagnée
+          d'un certificat d'authenticité.
+        </p>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="process-number">03</div>
+        <div class="process-divider mx-auto"></div>
+        <div class="process-title font-display mb-3">La livraison</div>
+        <p class="font-body process-desc mx-auto">
+          Emballage soigné, livraison sécurisée.
+          Votre œuvre arrive protégée, prête à être exposée.
+        </p>
+      </div>
+    </div>
+
+    <div class="gold-divider mt-5" style="max-width:300px;">
+      <span class="gold-ornament">✦</span>
+    </div>
+  </div>
+</section>
+
+
+{# ============================================================
+   NEWSLETTER
+   ============================================================ #}
+<section class="newsletter-section py-section">
+  <div class="container text-center newsletter-content">
+    <span class="section-label justify-content-center mb-4">Restez informé</span>
+    <h2 class="font-display newsletter-title mb-3">
+      Ne manquez aucune <em>nouvelle œuvre</em>
+    </h2>
+    <p class="font-body newsletter-desc mb-5 mx-auto">
+      Recevez en avant-première les nouvelles créations,
+      les éditions limitées et les actualités de l'atelier.
+    </p>
+    <div class="d-flex justify-content-center">
+      <div class="newsletter-form-wrapper">
+        <input type="email" class="newsletter-input" placeholder="votre@email.com">
+        <button class="btn-gold newsletter-btn">S'inscrire</button>
+      </div>
+    </div>
+    <p class="newsletter-legal mt-3">Aucun spam. Désinscription à tout moment.</p>
+  </div>
+</section>
+
+
+{# ============================================================
+   CTA FINAL
+   ============================================================ #}
+<section class="cta-section">
+  <div class="container cta-content text-center">
+    <span class="section-label justify-content-center mb-4">Boutique</span>
+    <h2 class="cta-title mb-4">
+      Trouvez l'œuvre qui vous<br><em>parle vraiment</em>
+    </h2>
+    <a href="{{ path('app_shop') }}" class="btn-gold btn-gold--lg">
+      Accéder à la boutique
+    </a>
+  </div>
+</section>
+
+{% endblock %}
